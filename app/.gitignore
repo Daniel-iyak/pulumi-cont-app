@@ -1,0 +1,9 @@
+# Environment variables
+.env
+# Node
+node_modules/
+infra/node_modules/
+npm-debug.log*
+
+# Docker
+.docker/ 
