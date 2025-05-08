@@ -1,21 +1,13 @@
-# Web Application
+# Node.js Application
 
-A simple Express.js web application that displays a configurable message. This application is containerized and deployed to AWS ECS.
-
-## Features
-
-- Express.js web server
-- Environment variable configuration
-- Docker containerization
-- Health check endpoint
+A simple Node.js application that runs in a container and displays a configurable message.
 
 ## Prerequisites
 
-- Node.js (>= 14)
-- npm (>= 6)
-- Docker
+- Node.js 18 or later
+- npm
 
-## Local Development
+## Setup
 
 1. Install dependencies:
 
@@ -23,53 +15,52 @@ A simple Express.js web application that displays a configurable message. This a
    npm install
    ```
 
-2. Create a `.env` file:
+2. Create a `.env` file with the following variables:
 
-   ```bash
+   ```env
    PORT=8080
    HOST=0.0.0.0
    MESSAGE=Hello from local development!
    ```
 
-3. Run the application:
+## Development
 
-   ```bash
-   npm start
-   ```
+Run the application locally:
 
-4. Access the application:
+```bash
+npm start
+```
 
-   ```bash
-   http://localhost:8080
-   ```
+The application will be available at <http://localhost:8080>
+
+## Endpoints
+
+- `GET /`: Returns the configured message
+- `GET /health`: Health check endpoint, returns 200 OK
 
 ## Docker
 
-Build and run the container:
+Build the Docker image:
 
 ```bash
-# Build the image
-docker build -t web-app .
+docker build -t app:latest .
+```
 
-# Run the container
-docker run -p 8080:8080 \
-  -e PORT=8080 \
-  -e HOST=0.0.0.0 \
-  -e MESSAGE="Hello from Docker!" \
-  web-app
+Run the container:
+
+```bash
+docker run -p 8080:8080 -e MESSAGE="Hello from Docker!" app:latest
 ```
 
 ## Environment Variables
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| PORT | Port to listen on | 8080 |
-| HOST | Host to bind to | 0.0.0.0 |
-| MESSAGE | Message to display | "hello world" |
+- `PORT`: The port the application listens on (default: 8080)
+- `HOST`: The host to bind to (default: 0.0.0.0)
+- `MESSAGE`: The message to display (default: "hello world")
 
-## Testing
+## Deployment
 
-The application includes a health check endpoint at `/` that returns the configured message.
+The application is designed to be deployed to AWS ECS using the Pulumi infrastructure in the `infra` directory. See the infrastructure README for deployment instructions.
 
 ## License
 
